@@ -46,6 +46,23 @@ if(mysqli_num_rows($result) < 2)
     $sql = "INSERT INTO `db319t32`.`players`(playerNum, status) VALUES ('2','NotReady')";
     $conn->query($sql);
 }
+
+$sql = "CREATE TABLE IF NOT EXISTS `db319t32`.`playernames`(playernum VARCHAR(3), player_name VARCHAR(250))";
+$conn->query($sql);
+//$sql = "SELECT `playernames`.`playernum`,`playernames`.`player_name`FROM `db319t32`.`players`";
+//$result = $conn->query($sql);
+////echo var_dump($result->fetch_assoc());
+//if(mysqli_num_rows($result) < 1)
+//{
+//    $sql = "INSERT INTO `db319t32`.`playernames`(playernum, player_name) VALUES ('1','')";
+//    $conn->query($sql);
+//}
+//if(mysqli_num_rows($result) < 2)
+//{
+//    $sql = "INSERT INTO `db319t32`.`playernames`(playernum, player_name) VALUES ('2','')";
+//    $conn->query($sql);
+//}
+
 $sql ="UPDATE `db319t32`.`players` SET status= 'NotReady' WHERE playerNum= '".$_SESSION['playerNum']."'";
 $conn->query($sql);
 $sql = "DROP TABLE `db319t32`.`table".$playNum."`";
@@ -62,11 +79,8 @@ $sql = "CREATE TABLE IF NOT EXISTS `db319t32`.`turn`(turnCount VARCHAR(3), winne
 $conn->query($sql);
 $sql = "INSERT INTO `db319t32`.`turn`(turnCount, winner) VALUES ('1', '0')";
 $conn->query($sql);
-$sql =  "DROP TABLE `db319t32`.`playernames`";
-$conn->query($sql);
-$sql = "CREATE TABLE IF NOT EXISTS `db319t32`.`playernames`(playernum VARCHAR(3), player_name VARCHAR(250))";
-$conn->query($sql);
-$sql = "INSERT INTO `db319t32`.`playernames`(playernum, player_name) VALUES ('".$_SESSION['playerNum']."','".$_SESSION['uname']."')";
+
+$sql = "UPDATE `db319t32`.`playernames` SET player_name= '".$_SESSION['uname']."' WHERE playernum= '".$_SESSION['playerNum']."'";
 $conn->query($sql);
 for($row = 1; $row < 9; $row++) {
     for ($col = 1; $col < 9; $col++) {
