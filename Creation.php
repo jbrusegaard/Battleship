@@ -62,6 +62,12 @@ $sql = "CREATE TABLE IF NOT EXISTS `db319t32`.`turn`(turnCount VARCHAR(3), winne
 $conn->query($sql);
 $sql = "INSERT INTO `db319t32`.`turn`(turnCount, winner) VALUES ('1', '0')";
 $conn->query($sql);
+$sql =  "DROP TABLE `db319t32`.`playernames`";
+$conn->query($sql);
+$sql = "CREATE TABLE IF NOT EXISTS `db319t32`.`playernames`(playernum VARCHAR(3), player_name VARCHAR(250))";
+$conn->query($sql);
+$sql = "INSERT INTO `db319t32`.`playernames`(playernum, player_name) VALUES ('".$_SESSION['playerNum']."','".$_SESSION['uname']."')";
+$conn->query($sql);
 for($row = 1; $row < 9; $row++) {
     for ($col = 1; $col < 9; $col++) {
         $sql = "INSERT INTO `db319t32`.`table" . $_SESSION['playerNum'] . "`(divID, hasbox, shiptype, ishit) VALUES (" . $row . $col . ",'false','nothing','false')";
